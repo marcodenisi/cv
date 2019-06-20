@@ -1,19 +1,15 @@
-sudo:       required
-language:   generic
-services:   docker
+language: r
+sudo: true
+latex: false
+pandoc: false
+warnings_are_errors: false
 
-# Docs of the options: https://github.com/Strauman/travis-latexbuild/tree/master#configuration-options
-tex-config:
-- tex-scheme=small
-- push-type=none
-- build-pattern=cv_MarcoDenisi.tex
-#- latexmk-flags=-dvi -f
-# Specify any packages to install that texliveonfly did not catch, and add it to the list at https://tex.stackexchange.com/a/463842/98850
-# Check at https://www.ctan.org/pkg/package-name in which TeX Live package a LaTeX package is contained.
-- packages=collection-langeuropean
-
+install: echo "The install step is required but does nothing now."
 script:
-- docker run --mount src=$TRAVIS_BUILD_DIR/,target=/repo,type=bind phpirates/texlive-latexbuild:texliveonfly
+- Rscript install_texlive.R
+- Rscript -e 'tinytex::pdflatex("cv_MarcoDenisi.tex", bib_engine = "biber")'
+
+cache: packages
 
 deploy:
   provider: releases
