@@ -4,7 +4,7 @@ services: docker
 
 script:
   - docker pull dxjoke/tectonic-docker
-  - docker run --mount src=$TRAVIS_BUILD_DIR/src,target=/usr/src/tex,type=bind dxjoke/tectonic-docker /bin/sh -c "tectonic main.tex; mv main.pdf cv_MarcoDenisi.pdf"
+  - docker run --mount src=$TRAVIS_BUILD_DIR/src,target=/usr/src/tex,type=bind dxjoke/tectonic-docker /bin/sh -c "tectonic cv_MarcoDenisi.tex"
 
 deploy:
   provider: releases
