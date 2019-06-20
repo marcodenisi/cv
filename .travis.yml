@@ -1,9 +1,19 @@
-sudo: required
-language: generic
-services: docker
+sudo:       required
+language:   generic
+services:   docker
+
+# Docs of the options: https://github.com/Strauman/travis-latexbuild/tree/master#configuration-options
+tex-config:
+- tex-scheme=small
+- push-type=none
+- build-pattern=cv_MarcoDenisi.tex
+#- latexmk-flags=-dvi -f
+# Specify any packages to install that texliveonfly did not catch, and add it to the list at https://tex.stackexchange.com/a/463842/98850
+# Check at https://www.ctan.org/pkg/package-name in which TeX Live package a LaTeX package is contained.
+- packages=collection-langeuropean
 
 script:
-  - docker run --mount src=$TRAVIS_BUILD_DIR,target=/usr/src/tex,type=bind dxjoke/tectonic-docker /bin/sh -c "tectonic cv_MarcoDenisi.tex"
+- docker run --mount src=$TRAVIS_BUILD_DIR/,target=/repo,type=bind phpirates/texlive-latexbuild:texliveonfly
 
 deploy:
   provider: releases
@@ -15,4 +25,5 @@ deploy:
     - "cv_MarcoDenisi.pdf"
   skip_cleanup: true
   on:
-    repo: marcodenisi/cv
+    tags: true
+    branch: master
