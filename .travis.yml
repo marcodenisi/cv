@@ -3,17 +3,17 @@ sudo: true
 latex: false
 pandoc: false
 warnings_are_errors: false
-
 install: echo "The install step is required but does nothing now."
 script:
 - Rscript install_texlive.R
 - Rscript -e 'tinytex::pdflatex("cv_MarcoDenisi.tex", bib_engine = "biber")'
-
 deploy:
   provider: releases
-  file: 
-    - "cv_MarcoDenisi.pdf"
+  file:
+  - cv_MarcoDenisi.pdf
   skip_cleanup: true
   on:
     tags: true
     branch: master
+  api_key:
+    secure: nxF+0G51scWoP1ntE8c2Caudy+3Rj5j2smDrUuEYw9TXqXVxLYozGFYnPQwfQ3oT5ao2wGV/GIV1g3Qsrx37JDZ77tqR+x7FVSpRD2yMb0AweS48nFzdpC2XdMJGqc9J7bNQEwSjFcxR27RdbXLihcciNU+09Khh9tLmPGq0SS5ZO2FfewHBsAQEaY+ThPIWKJ+oAGueILNjbHgxOjBaM8ZNUQFrSC6rW/gsSoK1Cjqj+jwgBweeT7wJYz5GOsU6jA+Idq97nMFwR9+GjU5RDbfsEwYkMIIul2mtmvs78hQ47iWPEnCPUY1sNLe+rfwId+iJqoQgSupy3+h16X4+hP2w9e2wGy6gFZu7NHrOCzuW5LQyfZEjIoSJl0O0UQsB9RZx8JKwNGLfE/8quYh/cxvLKP5RPQOr1aqVuTs9FAyqFylsO/+YFQlViw0d2IElmZ30Sq67Da1kHf9AfAMwwnzXP+3griSUBaPvwoCXTmueplSHIdvQovzLCtn2GY4aQY/8zII78bOZjdR3nZTzGRCCxLpkZtRgdicnoIzIg3NxblECWCVKZQAt9YPG9Gq6cir2ckI1UuNw84I7hmEejbDXhdzs+YNaFM/VZoh2/Hrr8UrYz9qil9Erg6AF2TsLD54I6Y0m6eo2HEuwB8P/AnxUFw8wprKZRMHxcY52L7o=
