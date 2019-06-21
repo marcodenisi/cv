@@ -9,11 +9,11 @@ script:
 - Rscript install_texlive.R
 - Rscript -e 'tinytex::pdflatex("cv_MarcoDenisi.tex", bib_engine = "biber")'
 
-#deploy:
-#  provider: releases
-#  file: 
-#    - "cv_MarcoDenisi.pdf"
-#  skip_cleanup: true
-#  on:
-#    tags: true
-#    branch: master
+deploy:
+  provider: releases
+  file: 
+    - "cv_MarcoDenisi.pdf"
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
