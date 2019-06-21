@@ -1,4 +1,5 @@
 # cv
-Repo containing my personal curriculum vitae.
 
-[![Build Status](https://api.travis-ci.com/marcodenisi/cv.svg)](https://travis-ci.com/marcodenisi/cv)
+[![Build Status](https://travis-ci.org/marcodenisi/cv.svg?branch=master)](https://travis-ci.org/marcodenisi/cv)
+
+Repo containing my personal curriculum vitae.
