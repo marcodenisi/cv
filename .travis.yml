@@ -7,7 +7,7 @@ warnings_are_errors: false
 install: echo "The install step is required but does nothing now."
 script:
 - Rscript install_texlive.R
-- Rscript -e 'tinytex::pdflatex("cv_MarcoDenisi.tex", bib_engine = "biber")'
+- Rscript -e 'options(tinytex.verbose = TRUE); tinytex::pdflatex("cv_MarcoDenisi.tex", bib_engine = "biber")'
 
 cache: packages
 
