@@ -9,7 +9,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## Curriculum Vitae
-My updated curriculum vitae. Written in latex, it uses the (AltaCV)[https://github.com/liantze/AltaCV] template. Built using Travis-CI.
+My updated curriculum vitae. Written in latex, it uses the [AltaCV](https://github.com/liantze/AltaCV) template. Built using Travis-CI.
 
 ### Built With
 * [Latex](https://www.latex-project.org/)
