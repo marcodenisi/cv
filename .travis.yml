@@ -1,22 +1,32 @@
-language: r
-sudo: true
-latex: false
-pandoc: false
-warnings_are_errors: false
+language: generic
 
-install: echo "The install step is required but does nothing now."
-script:
-- Rscript install_texlive.R
-- Rscript -e 'options(tinytex.verbose = TRUE); tinytex::pdflatex("cv_MarcoDenisi.tex", bib_engine = "biber")'
+before_install:
+  - sudo apt-get install texlive-binaries
 
-cache: packages
-
+install:
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - if ! command -v conda > /dev/null; then
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+      bash miniconda.sh -b -p $HOME/miniconda -u;
+      conda config --add channels conda-forge;
+      conda config --set always_yes yes;
+      conda install tectonic==0.1.10;
+    fi
+  - conda install -c malramsay biber==2.5 --yes
+  - conda info -a
+  # Workaround until tectonic 0.1.11 is available
+  - sudo mkdir -p ~/.config/Tectonic/
+  - echo "[[default_bundles]]" | sudo tee --append ~/.config/Tectonic/config.toml
+  - sudo echo "url = \"https://tectonic.newton.cx/bundles/tlextras-2018.1r0/bundle.tar\"" | sudo tee --append ~/.config/Tectonic/config.toml
+cache:
+  directories:
+    - $HOME/miniconda
+    - $HOME/.cache/Tectonic
+script: 
+ - tectonic --keep-intermediates --reruns 0 ./cv_MarcoDenisi.tex
+ - tectonic ./cv_MarcoDenisi.tex --print
 deploy:
   provider: releases
-  #api_key:
-# Travis CI public key encrypted GitHub oauth key for pushing to GitHub Releases
-    #secure: UNfN17F/m8PSbbU53/xHGqySzA/pyyrWIc42o6Mnb3EzOMlAhTLsHvnOTw8L27KEeszyZJp8TcyG0PCnFfTgzV3gWMc1tweLnPBwWYj+qFWqQyqc8pkG4xfMrEAfbFk20sYGQYoRnaws85uc/nCcXNhVKvcFMCaZUYcxJKV/Kdass4rsfc205nRqvXa3unWlg51YzNtAB2glGbhe9/Rw6SeeTJiUmcjWKPDEhTfCTF8X0d4QaM6RiDly+Vfzv9POf+FRk8HWrmiImxguxepHhb5Ellz7hPZlTQ6iEb+igzde7jxxUKc4otFSrDG45TLoQ8BKsf32AMUo/JjXMT29H2alEF3P/6pSaev2M9gyVsQbzCfxUQOUn5HilY0D3khEIiT1smK0LrQPrQcarldN4BLJm/WG9pzsjKOp3PZQ6Afy1TOG2LPJv+xOIJFhYHNQSp+jjRaPLxbDwcZfxGFPPTDJ2xJvPEoNjL3vT1bdppGgopZxShqmxxzolBMoG0Y+H87DKu7Zv8u3yyjxneP1dhb+StsTLS7GzahD3J2WjHos9UYZV2BGitMyy2j7GJQ5+oPBH3HdoiLjU8BcTOOQ7ZX6xDxBaA9MyT+Q6pYFuxpZkbmB/7GZFnizP7Hpf5WExGVIqlIeYM6zZSaha49SPWxdQSHDLZTUHVGcG4tDbLY=
-
   file: 
     - "cv_MarcoDenisi.pdf"
   skip_cleanup: true
