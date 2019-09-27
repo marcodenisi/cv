@@ -10,4 +10,4 @@ jobs:
       uses: xu-cheng/latex-action@master
       with:
         root_file: cv_MarcoDenisi.tex
-        working_directory: output/
+        working_directory: ./
