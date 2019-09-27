@@ -1,0 +1,12 @@
+name: Build CV
+on: push
+jobs:
+  build_cv:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v1
+    - name: Compile CV
+      uses: xu-cheng/latex-action@master
+      with:
+        root_file: cv_MarcoDenisi.tex
