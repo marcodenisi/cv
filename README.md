@@ -1,5 +1,8 @@
 <!-- PROJECT SHIELDS -->
 [![Build Status](https://travis-ci.org/marcodenisi/cv.svg?branch=master)](https://travis-ci.org/marcodenisi/cv)
+[![Build Status](https://github.com/marcodenisi/cv/workflows/Build%20CV/badge.svg)]
+
+
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents

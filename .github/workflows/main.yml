@@ -1,0 +1,23 @@
+name: Build CV
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  release_cv:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v1
+    - name: Compile CV
+      uses: xu-cheng/latex-action@master
+      with:
+        root_file: cv_MarcoDenisi.tex
+    - name: Check pdf file
+      run: |
+        file cv_MarcoDenisi.pdf | grep -q ' PDF '
+    - name: Create and upload release
+      uses: frankjuniorr/github-create-release-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
