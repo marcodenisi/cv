@@ -1,12 +1,12 @@
 name: Build CV
-on: push
+on: 
+  push:
+    branches:
+      - master
 jobs:
   release_cv:
     runs-on: ubuntu-latest
     steps:
-    - name: Filter Push on master
-      uses: actions/bin/filter@master
-      args: "branch master"
     - name: Checkout repo
       uses: actions/checkout@v1
     - name: Compile CV
