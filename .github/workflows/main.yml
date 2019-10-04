@@ -1,5 +1,5 @@
 name: Build CV
-on: 
+on:
   push:
     branches:
       - master
@@ -7,8 +7,8 @@ jobs:
   release_cv:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v1
+    - name: Checkout master
+      uses: actions/checkout@master
     - name: Compile CV
       uses: xu-cheng/latex-action@master
       with:
@@ -20,4 +20,3 @@ jobs:
       uses: frankjuniorr/github-create-release-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
