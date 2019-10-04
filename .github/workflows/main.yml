@@ -1,9 +1,12 @@
 name: Build CV
 on: push
 jobs:
-  build_cv:
+  release_cv:
     runs-on: ubuntu-latest
     steps:
+    #- name: Filter Push on master
+    #  uses: actions/bin/filter@master
+    #  args: "branch master"
     - name: Checkout repo
       uses: actions/checkout@v1
     - name: Compile CV
@@ -13,31 +16,8 @@ jobs:
     - name: Check pdf file
       run: |
         file cv_MarcoDenisi.pdf | grep -q ' PDF '
-    - name: Upload cv
-      run: |
-        set -e
-        
-        # configure git
-        git config --global user.name "$USER"
-        git config --global user.email "$EMAIL"
-        
-        # setup ssh
-        mkdir ~/.ssh
-        chmod 700 ~/.ssh
-        echo "$DEPLOY_KEY" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        git config --global core.sshCommand "ssh -i ~/.ssh/id_ed25519 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-        git clone --depth=1 $WEBSITE_REPO "$GITHUB_WORKSPACE/website"
-        cp -f cv_MarcoDenisi.pdf "$GITHUB_WORKSPACE/website/static/cv_MarcoDenisi.pdf"
-        cd "$GITHUB_WORKSPACE/website"
-        git add static/cv.pdf
-        git diff --exit-code HEAD -- static/cv.pdf && exit 0
-        git commit -m "[github actions] update cv"
-        git push
+    - name: Create and upload release
+      uses: frankjuniorr/github-create-release-action@master
       env:
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        EMAIL: ${{secrets.EMAIL}}
-        USER: ${{secrets.USER}}
-        WEBSITE_REPO: ${{secrets.WEBSITE_REPO}}
-      if: github.event_name == 'push' && github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, '[skip upload]')
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
