@@ -1,8 +1,8 @@
 name: Build CV
-on:
-  push:
-    tags:
-      - 'v*.*.*'
+on: push
+  #push:
+    #tags:
+    #  - 'v*.*.*'
 jobs:
   release_cv:
     runs-on: ubuntu-latest
@@ -22,3 +22,43 @@ jobs:
         files: cv_MarcoDenisi.pdf
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload to virtual env
+      uses: actions/upload-artifact@v1
+      with:
+        name: cv
+        path: cv_MarcoDenisi.pdf
+  
+  push_to_blog:
+    needs: release_cv
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download from virtual env
+      uses: actions/download-artifact@v1
+      with:
+        name: cv
+    - name: Upload cv.pdf
+      run: |
+        set -e
+
+        # configure git
+        git config --global user.name "$USER"
+        git config --global user.email "$EMAIL"
+
+        # setup ssh
+        mkdir ~/.ssh
+        chmod 700 ~/.ssh
+        echo "$BLOG_DEPLOY_KEY" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        git config --global core.sshCommand "ssh -i ~/.ssh/id_ed25519 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+        git clone --depth=1 $BLOG_GIT_REPO "$GITHUB_WORKSPACE/blog"
+        cp -f cv_MarcoDenisi.pdf "$GITHUB_WORKSPACE/blog/static/cv.pdf"
+        cd "$GITHUB_WORKSPACE/blog"
+        git add static/cv_MarcoDenisi.pdf
+        git diff --exit-code HEAD -- static/cv_MarcoDenisi.pdf && exit 0
+        git commit -m "[github actions] update new cv release"
+        git push
+      env:
+        BLOG_DEPLOY_KEY: ${{ secrets.BLOG_DEPLOY_KEY }}
+        USER: ${{ secrets.USER }}
+        EMAIL: ${{ secrets.EMAIL }}
+        BLOG_GIT_REPO: ${{ secrets.BLOG_GIT_REPO }}
