@@ -1,8 +1,5 @@
 name: Build CV
-on:
-  push:
-    branches:
-      - master
+on: push
 jobs:
   release_cv:
     runs-on: ubuntu-latest
@@ -16,7 +13,7 @@ jobs:
     - name: Check pdf file
       run: |
         file cv_MarcoDenisi.pdf | grep -q ' PDF '
-    - name: Create and upload release
-      uses: frankjuniorr/github-create-release-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #- name: Create and upload release
+    #  uses: frankjuniorr/github-create-release-action@master
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
