@@ -1,5 +1,5 @@
 <!-- PROJECT SHIELDS -->
-![Build Status](https://github.com/marcodenisi/cv/workflows/Build%20CV/badge.svg)
+[![Build Status](https://github.com/marcodenisi/cv/workflows/Build%20CV/badge.svg)](https://github.com/marcodenisi/cv/actions)
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
