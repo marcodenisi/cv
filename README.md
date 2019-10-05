@@ -14,7 +14,7 @@ My updated curriculum vitae. Written in latex, it uses the [AltaCV](https://gith
 
 ### Built With
 * [Latex](https://www.latex-project.org/)
-* [Travis-CI](https://travis-ci.org/)
+* [Github Actions](https://github.com/features/actions)
 
 ### Modify and Deploy
 Once changes are committed and pushed to the remote repository, you can trigger the creation of a release by tagging the commit 
@@ -25,4 +25,4 @@ and then pushing the tag
 
 `git push origin vX.Y.Z`
 
-Travis-CI will take care of everything else. 
+The Github Actions workflow (check `.github/workflows/main.yml`) will take care of creating a new release. 
