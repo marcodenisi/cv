@@ -1,5 +1,5 @@
 name: Build CV
-on: push
+on:
   push:
     tags:
       - 'v*.*.*'
