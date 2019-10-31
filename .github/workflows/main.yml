@@ -51,7 +51,7 @@ jobs:
         chmod 600 ~/.ssh/id_ed25519
         git config --global core.sshCommand "ssh -i ~/.ssh/id_ed25519 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
         git clone --depth=1 $BLOG_GIT_REPO "$GITHUB_WORKSPACE/blog"
-        cp -f cv_MarcoDenisi.pdf "$GITHUB_WORKSPACE/blog/static/cv.pdf"
+        cp -f cv/cv_MarcoDenisi.pdf "$GITHUB_WORKSPACE/blog/static/cv.pdf"
         cd "$GITHUB_WORKSPACE/blog"
         git add static/cv_MarcoDenisi.pdf
         git diff --exit-code HEAD -- static/cv_MarcoDenisi.pdf && exit 0
