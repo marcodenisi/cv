@@ -1,8 +1,8 @@
 name: Build CV
 on: push
-  #push:
-    #tags:
-    #  - 'v*.*.*'
+  push:
+    tags:
+      - 'v*.*.*'
 jobs:
   release_cv:
     runs-on: ubuntu-latest
@@ -16,12 +16,12 @@ jobs:
     - name: Check pdf file
       run: |
         file cv_MarcoDenisi.pdf | grep -q ' PDF '
-    #- name: Create and upload release
-    #  uses: softprops/action-gh-release@v1
-    #  with:
-    #    files: cv_MarcoDenisi.pdf
-    #  env:
-    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create and upload release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: cv_MarcoDenisi.pdf
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload to virtual env
       uses: actions/upload-artifact@v1
       with:
