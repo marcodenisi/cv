@@ -1,9 +1,9 @@
 name: Build CV
 on:
-  - workflow_dispatch:
-  - push:
-      tags:
-        - 'v*.*.*'
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
 jobs:
   release_cv:
     runs-on: ubuntu-latest
